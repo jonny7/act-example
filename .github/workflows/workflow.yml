@@ -18,5 +18,5 @@ jobs:
     steps:
       - name: Run sed
         run: |
-          sed 'host: 127.0.0.1/host: 0.0.0.0' config.yml
+          sed -i 'host: 127.0.0.1/host: 0.0.0.0' config.yml
           cat config.yml
