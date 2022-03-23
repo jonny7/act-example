@@ -16,6 +16,7 @@ jobs:
   skip-pipeline:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Run sed
         run: |
           sed -i 's/host: 127.0.0.1/host: 0.0.0.0/' config.yml
