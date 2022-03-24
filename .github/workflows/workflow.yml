@@ -23,8 +23,9 @@ jobs:
     - name: Build file
       run: |
         cat <<\EOT >nginx.conf
-        port: 8000
-        host: 0.0.0.0
+        server {
+          listen 8080;
+        }
         EOT
         cat nginx.conf
     
