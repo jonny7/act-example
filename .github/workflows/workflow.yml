@@ -15,18 +15,17 @@ on:
 jobs:
   skip-pipeline:
     runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.set-skip.outputs.skip || false }}
     steps:
-      - name: Set skip output var
-        id: set-skip
-        if: contains(github.event.pull_request.labels.*.name, 'skip-ci')
-        run: echo "::set-output name=skip::true"
-
-  integration_tests:
-    runs-on: ubuntu-latest
-    needs: skip-pipeline
-    if: needs.skip-pipeline.outputs.skip == 'false'
-    steps:
-    - name: Getting skip output var value
-      run: echo ${{needs.skip-pipeline.outputs.skip}}
+    
+    - name: Build file
+      run: |
+        cat <<\EOT >nginx.conf
+        port: 8000
+        host: 0.0.0.0
+        EOT
+        cat nginx.conf
+    
+    - name: Do docker stuff with volume
+      run: |
+        docker-compose build
+        docker-compose up --abort-on-container-exit
