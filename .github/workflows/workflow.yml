@@ -23,8 +23,10 @@ jobs:
     - name: Build file
       run: |
         cat <<\EOT >nginx.conf
-        server {
-          listen 8080;
+        http {
+          server {
+            listen 8080;
+          }
         }
         EOT
         cat nginx.conf
