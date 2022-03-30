@@ -1,4 +1,4 @@
-name: Merged
+name: Merged.
 
 on:
   pull_request:
