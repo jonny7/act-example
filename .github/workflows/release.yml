@@ -1,0 +1,23 @@
+name: Merged
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release Docker Image
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == 'true'
+    steps:
+      - name: Pull source instead of buildx
+        uses: actions/checkout@v2
+  output:
+    name: Output of event
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+        echo ${{ github.event.pull_request.merged }}
