@@ -1,5 +1,8 @@
 name: Merged.
 
+env:
+  COMPUTED: ${{ github.head_ref }} | sed 's/pr/kitten/'
+
 on:
   pull_request:
     types:
@@ -8,20 +11,14 @@ on:
       - release
 
 jobs:
-  release:
-    name: Release Docker Image
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    steps:
-      - name: Pull source instead of buildx
-        uses: actions/checkout@v2
   output:
-    name: Output of event
+    name: Output
     runs-on: ubuntu-latest
     steps:
     - name: Build and Push to Viadock
       run: |
-        echo version $VERSION
+        echo ${{ github.head_ref }} | sed 's/pr/kitten/'
+        echo version was $VERSION
         docker build -t jonny7/a:$VERSION .
       env:
-        VERSION: ${{ github.head_ref }} | sed 's/pr/kitten/'
+        VERSION: ${{ env.COMPUTED }}
