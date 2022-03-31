@@ -14,6 +14,7 @@ jobs:
     steps:
     - name: Build and Push to Viadock
       run: |
-        echo "VERSION=(echo ${{ github.head_ref }} | sed 's/pr/kitten/')" >> $GITHUB_ENV
+        echo ${{ github.head_ref }}
+        echo "VERSION=$(echo ${{ github.head_ref }} | sed 's/pr/kitten/')" >> $GITHUB_ENV
         echo version was ${{env.VERSION}}
         docker build -t jonny7/a:${{ env.VERSION }} .
