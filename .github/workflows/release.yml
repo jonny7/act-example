@@ -12,16 +12,14 @@ jobs:
     name: Output
     runs-on: ubuntu-latest
     steps:
+    - name: Set tag
+      id: tag-step
+      run: |
+        echo "::set-output name=TAG::${{ github.head_ref }} | sed 's/pr/kitten/'"
+        
     - name: Build and Push to Viadock
       run: |
-        echo "VERSION2=$(echo ${{ github.head_ref }} | sed 's/pr/kitten/')"
-        echo ${{ env.VERSION2 }}
-        echo "VERSION3=something" >> $GITHUB_ENV
-        echo ${{ env.VERSION3 }}
-        echo ${{ github.head_ref }}
-        echo "VERSION=$(echo ${{ github.head_ref }} | sed 's/pr/kitten/')" >> $GITHUB_ENV
-        echo version was ${{env.VERSION}}
-        echo $NEW_VERSION
-        docker build -t jonny7/a:${{ env.VERSION }} .
+        echo value was "${{ steps.tag-step.outputs.TAG }}"
+        docker build -t jonny7/a:${{ steps.tag-step.outputs.TAG }} .
       env:
         NEW_VERSION: ${{ env.VERSION }}
