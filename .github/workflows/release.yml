@@ -19,10 +19,10 @@ jobs:
     name: Output of event
     runs-on: ubuntu-latest
     steps:
-      - name: Do stuff
-        env:
-          TAG: release/1.19.0
-        run: |
-          echo the merged branch was ${{ github.head_ref }}
-          echo tag=$(echo ${{ github.head_ref }} | sed 's/release\///')
-          echo the new tag var is $tag
+    - name: Build and Push to Viadock
+      env:
+        VERSION: echo tag=$(echo ${{ github.head_ref }} | sed 's/pr//') 
+      run: |
+        echo version was $VERSION
+        docker build --build-arg=VIADOCK_USER=${{ secrets.VIADOCK_USER }} --build-arg=VIADOCK_PASSWORD=${{ secrets.VIADOCK_PASSWORD }} -t nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${VERSION} .
+        docker push nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${VERSION}
