@@ -15,7 +15,7 @@ jobs:
     - name: Set tag
       id: tag-step
       run: |
-        echo "::set-output name=TAG::(echo ${{ github.head_ref }} | sed 's/pr/kitten/')"
+        echo "::set-output name=TAG::$(echo ${{ github.head_ref }} | sed 's/pr/kitten/')"
         
     - name: Build and Push to Viadock
       run: |
