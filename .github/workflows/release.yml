@@ -19,5 +19,8 @@ jobs:
     name: Output of event
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo ${{ github.ref_name }}
+      - name: Do stuff
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          echo ${TAG}
