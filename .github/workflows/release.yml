@@ -1,8 +1,5 @@
 name: Merged.
 
-env:
-  COMPUTED: echo ${{ github.head_ref }} | sed 's/pr/kitten/'
-
 on:
   pull_request:
     types:
@@ -17,8 +14,6 @@ jobs:
     steps:
     - name: Build and Push to Viadock
       run: |
-        echo ${{ github.head_ref }} | sed 's/pr/kitten/'
-        echo version was $VERSION
-        docker build -t jonny7/a:$VERSION .
-      env:
-        VERSION: ${{ env.COMPUTED }}
+        echo "VERSION=(echo ${{ github.head_ref }} | sed 's/pr/kitten/')" >> $GITHUB_ENV
+        echo version was ${{env.VERSION}}
+        docker build -t jonny7/a:${{ env.VERSION }} .
