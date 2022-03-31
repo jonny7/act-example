@@ -21,7 +21,7 @@ jobs:
     steps:
     - name: Build and Push to Viadock
       run: |
-        docker build --build-arg=VIADOCK_USER=${{ secrets.VIADOCK_USER }} --build-arg=VIADOCK_PASSWORD=${{ secrets.VIADOCK_PASSWORD }} -t nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${VERSION} .
-        docker push nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${VERSION}
+        echo version ${VERSION}
+        docker build -t jonny7/a:${VERSION} .
       env:
         VERSION: echo ${{ github.head_ref }} | sed 's/pr//'
