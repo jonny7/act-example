@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Do stuff
         env:
-          TAG: ${{ github.ref_name }}
+          TAG: release/1.19.0
         run: |
-          echo $TAG
+          echo the merged branch was ${{ github.ref_name }}
+          echo tag=$(echo ${{ github.ref_name }} | sed 's/release\///')
+          echo the new tag var is $tag
