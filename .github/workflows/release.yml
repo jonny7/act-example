@@ -23,6 +23,6 @@ jobs:
         env:
           TAG: release/1.19.0
         run: |
-          echo the merged branch was ${{ github.ref }}
-          echo tag=$(echo ${{ github.ref }} | sed 's/release\///')
+          echo the merged branch was ${{ github.head_ref }}
+          echo tag=$(echo ${{ github.head_ref }} | sed 's/release\///')
           echo the new tag var is $tag
