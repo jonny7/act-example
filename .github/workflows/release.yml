@@ -20,9 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Build and Push to Viadock
-      env:
-        VERSION: echo tag=$(echo ${{ github.head_ref }} | sed 's/pr//') 
       run: |
-        echo version was $VERSION
-        docker build --build-arg=VIADOCK_USER=${{ secrets.VIADOCK_USER }} --build-arg=VIADOCK_PASSWORD=${{ secrets.VIADOCK_PASSWORD }} -t nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${VERSION} .
-        docker push nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${VERSION}
+        echo "VERSION=echo tag=$(echo ${{ github.head_ref }} | sed 's/pr//') " >> $GITHUB_ENV
+        docker build --build-arg=VIADOCK_USER=${{ secrets.VIADOCK_USER }} --build-arg=VIADOCK_PASSWORD=${{ secrets.VIADOCK_PASSWORD }} -t nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${env.VERSION} .
+        docker push nexus.mtvi.com:18079/viacbs/conduit-integration-testing:${env.VERSION}
