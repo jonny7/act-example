@@ -24,4 +24,4 @@ jobs:
         echo version $VERSION
         docker build -t jonny7/a:$VERSION .
       env:
-        VERSION: echo ${{ github.head_ref }} | sed 's/pr//'
+        VERSION: ${{ github.head_ref }} | sed 's/pr/kitten/'
