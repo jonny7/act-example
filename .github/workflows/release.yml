@@ -1,7 +1,7 @@
 name: Merged.
 
 env:
-  COMPUTED: ${{ github.head_ref }} | sed 's/pr/kitten/'
+  COMPUTED: echo ${{ github.head_ref }} | sed 's/pr/kitten/'
 
 on:
   pull_request:
